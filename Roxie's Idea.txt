@@ -11,7 +11,7 @@ Upon starting, you are given two modes, regular or hard
 When playing the game, it always starts at your turn at the beginning of every round and every time the rifle is reloaded.
   * The rifle is loaded with bullets at random, typically the amount of real shots and blanks are even though there are circumstances they are uneven
       * There is always at least 1 live and 1 blank bullet every time it is loaded.
-      * The rifle is reloaded when there are no shots left (Both blank and live) and
+      * The rifle is reloaded when there are no shots left (Both blank and live) and it is your turn at the beginning of every reload
   * You have the option to shoot yourself or the opponent, if you shoot yourself (with either a blank or live), it will remain your turn
   * You or your opponent may use any items while it's their turn without ending their turn. Each can carry a maximum of 8 items
   * When the rifle is reloaded, both opponents are given a new set of items, the quantity ranges from 2-4.
@@ -28,3 +28,9 @@ New Concepts:
 PVP Mode: A new mode where you and another real life player play with each other instead of a computer.
     * Will have to work out who's turn it is at the beginning of the game and at the beginning of every reload, perhaps a fun coin toss sub-game? Open for suggestions
 Settings: A menu where you can change the game's settings, maybe ones such as computer intelligence, handcuff duration, item spawn rates, etc
+Probably have to change the name of the game
+
+More information about Buckshot Roulette:
+* https://mikeklubnika.itch.io/buckshot-roulette
+* Though the game is $1.20, i learned by watching Poofesure's live streams, though there are many other youtubers who have streamed this game
+  * Markiplier and Thinknoodles have also played this game and have videos on their channels.
