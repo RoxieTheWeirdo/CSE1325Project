@@ -20,3 +20,4 @@ Notes:
 * I built this in IntelliJ, I know the Syllabus recommends Eclipse though I couldn't get it to work on my computer
 * I tested it in OnlineGDB just to see what happens, sometimes a couple of the blocks will render as � at complete random
     - For this reason, OnlineGDB is not recommended for running this
+* Made with JDK 18.0.2
