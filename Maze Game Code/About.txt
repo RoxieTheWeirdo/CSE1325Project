@@ -1,0 +1,22 @@
+This is the first build of Maze Game finished 3/19/24!
+
+Features:
+* A title card with a main menu
+* Exiting the program without using the "exit" button in a compiler
+* Beginning a maze game, with a hard-coded start point
+* A navigable maze with collision detection and boundary detection
+* Placeholders for other features like health, stamina, and items
+* Player stats stored in Player.java
+* Game mechanics stored in GameData.java (Collision Detection is one)
+* Easy to make more mazes!
+    - Just make a new switch case and make one in a 2D array! No need to worry about hard-coding sizes nor ensuring it's a perfect square!
+* Easy to add more non-passable blocks!
+    - Just add an else if case with the same code above, insert the icon you want the block to have collision, and that's it!
+
+
+
+
+Notes:
+* I built this in IntelliJ, I know the Syllabus recommends Eclipse though I couldn't get it to work on my computer
+* I tested it in OnlineGDB just to see what happens, sometimes a couple of the blocks will render as � at complete random
+    - For this reason, OnlineGDB is not recommended for running this
