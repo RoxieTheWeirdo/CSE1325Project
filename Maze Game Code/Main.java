@@ -61,7 +61,7 @@ public class Main {
                 }
                 break;
             case 'S':           //S (Down)
-                if (Pl.currentCol + 1 < maze.length && Gm.passable(maze, Pl,1,0)) {
+                if (Pl.currentRow + 1 < maze.length && Gm.passable(maze, Pl,1,0)) {
                     Pl.currentRow += 1;
                 }
                 break;
