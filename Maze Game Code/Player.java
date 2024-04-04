@@ -7,11 +7,11 @@ public class Player {
     String item1;
     String item2;
     public void setBaseStats() {            //default stats loaded at beginning of program
-        health = 20;
+        health = 100;
         stamina = 100;
         currentRow = 0;
         currentCol = 0;
-        LVL = 2;
+        LVL = 1;
         item1 ="";
         item2 ="";
     }
