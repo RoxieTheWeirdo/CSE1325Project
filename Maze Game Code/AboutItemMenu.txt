@@ -7,13 +7,17 @@
       
 * Two Items have been added
   - Potion of Vigor
+      - Looks like a "V" on the maze map
       - Restores 50HP, consumed upon use
       - Cannot exceed maximum HP (100)
       - Fails if HP is already 100 and is not consumed
   - Key
+      - Looks like a "K" on the maze map
       - Unlocks Key Doors, consumed if unlocked
       - Checks all 4 sides of player for an unlockable door
       - Doesn't check places that are Out of bounds
+
+* Added the key door block "X"
       
   * Smaller Changes:
     - Made the scanner available for the entire Main.java file, you dont need to declare it every function
