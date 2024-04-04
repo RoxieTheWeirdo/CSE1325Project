@@ -1,10 +1,28 @@
-public class GameData {
-    public boolean passable(char[][] maze, Player Pl,int offsetRow, int offsetCol) {
-        if (maze[Pl.currentRow + offsetRow][Pl.currentCol + offsetCol] == '█') {        //if a block should be able to go through
-            System.out.println("Invalid Position! (You'd take damage normally)");       //can modify more blocks later (breakable, ball, etc)
-            return false;
+public class Player {
+    double health;
+    double stamina;
+    int currentRow;
+    int currentCol;
+    int LVL;
+    String item1;
+    String item2;
+    public void setBaseStats() {            //default stats loaded at beginning of program
+        health = 20;
+        stamina = 100;
+        currentRow = 0;
+        currentCol = 0;
+        LVL = 2;
+        item1 ="";
+        item2 ="";
+    }
+    public void basePosition(Player Pl, int LVL) {
+        if (LVL == 1) {
+            Pl.currentRow = 14;
+            Pl.currentCol = 1;
         }
-        return true;
+        else if (LVL == 2) {
+            Pl.currentRow = 0;
+            Pl.currentCol = 0;
+        }
     }
 }
-//also lets the user be able to go past things they should be able to (like items on ground)
