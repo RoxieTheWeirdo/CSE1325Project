@@ -4,6 +4,8 @@
   - Drop items through this menu
       - You can't drop items onto an already placed item
       - The dropped item stays in place and acts like a regular item
+  - If item 2 is consumed, it will take the place of item1
+  - Unlike the other menus, this menu and the drop item menu are dynamic and change depending on circumstances
       
 * Two Items have been added
   - Potion of Vigor
