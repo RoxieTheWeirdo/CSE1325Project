@@ -1,26 +1,29 @@
 import java.io.BufferedReader;      //for titletext.txt
 import java.io.FileReader;          //titletext.txt
 import java.util.Scanner;           //The scanner, the majestic scanner
+import java.util.Arrays;
 public class Main {
     public static Player Pl = new Player();     //stats found in Player.java
     public static GameData Gm = new GameData();     //Use of functions in GameData.java
-    public static char[][] maze = null;
-    public static void loadMaze() {
-        switch (Pl.currentLvl()) {
+    public static char[][] currentMaze = null;
+    public static char[][] baseMaze = null;
+    public static Scanner sc = new Scanner(System.in);
+    public static void loadBaseMaze() {
+        switch (Pl.LVL) {
             case 1:
-                maze = new char[][] {           //level 1
+                baseMaze = new char[][]{           //level 1
                         {'█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '-', '█',},
-                        {'█', '-', '-', '-', '-', '█', '█', '-', '█', '-', '█', '█', '-', '█',},
+                        {'█', '-', '-', '-', '-', '█', '█', '-', '█', '-', '█', '█', 'X', '█',},
                         {'█', '-', '█', '█', '█', '█', '█', '-', '█', '-', '█', '-', '-', '█',},
                         {'█', '-', '█', '-', '-', '-', '█', '-', '-', '-', '█', '-', '-', '█',},
                         {'█', '-', '█', '-', '-', '-', '█', '█', '█', '-', '█', '-', '-', '█',},
                         {'█', '-', '█', '-', '-', '-', '-', '-', '-', '-', '█', '-', '-', '█',},
                         {'█', '-', '█', '-', '█', '-', '█', '█', '█', '-', '█', '-', '-', '█',},
                         {'█', '-', '█', '-', '█', '-', '█', '-', '█', '-', '█', '-', '-', '█',},
-                        {'█', '-', '-', '-', '█', '-', '█', '-', '█', '-', '-', '-', '-', '█',},
-                        {'█', '-', '-', '-', '█', '-', '█', '-', '█', '-', '█', '█', '-', '█',},
+                        {'█', '-', '-', '-', '▓', '-', '█', '-', '█', '-', '-', '-', '-', '█',},
+                        {'█', '-', '-', '-', '▓', '-', '█', '-', '█', '-', '█', '█', '-', '█',},
                         {'█', '█', '█', '█', '█', '-', '█', '-', '█', '-', '█', '-', '-', '█',},
-                        {'█', '-', '-', '-', '-', '-', '█', '-', '-', '-', '█', '-', '-', '█',},
+                        {'█', '-', 'V', '-', '-', '-', '█', 'K', '-', '-', '█', '-', '-', '█',},
                         {'█', '-', '█', '█', '█', '█', '█', '-', '█', '-', '█', '-', '-', '█',},
                         {'█', '-', '█', '█', '█', '█', '█', '-', '█', '█', '█', '█', '█', '█',},
                         {'█', '-', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█',}
@@ -28,21 +31,30 @@ public class Main {
                 };
                 break;
             case 2:
-                maze = new char[][] {       //test level (Change Pl.LVL to 2 if you want to use this)
-                        {'.', '.', '.', '█'},
-                        {'█', '.', '.', '.'},
-                        {'█', '█', '.', '.'},
-                        {'█', '█', '█', '.'}
+                baseMaze = new char[][]{       //test level (Change Pl.LVL to 2 if you want to use this)
+                        {'-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '█'},
+                        {'-', '-', '▓', '▓', '▓', '-', '-', '-', 'V', '-', '█'},
+                        {'-', '-', '▓', '▓', '▓', '-', '-', '-', 'V', '-', '█'},
+                        {'█', '-', '▓', '▓', '▓', '-', '-', '-', 'V', '-', '█'},
+                        {'█', '-', '-', '-', '-', '-', '-', '-', '-', '-', '█'},
+                        {'█', '-', '-', '-', '-', '-', '-', '-', '-', '-', '█'},
+                        {'█', '-', '-', '-', '-', 'X', '-', '-', '-', '-', '█'},
+                        {'█', 'K', '-', '-', '-', '-', '-', '-', '-', '-', '█'},
+                        {'█', 'K', '-', '-', '-', '-', '-', '-', '-', '-', '-'},
+                        {'█', 'K', '-', '-', '-', '-', '█', 'X', '█', '-', '-'},
+                        {'█', '-', '-', '-', '-', '-', '█', '-', '█', '-', '-'}
                 };
                 break;
         }
-        for (int i = 0; i < maze.length; i++) {     //prints the selected maze
-            for (int j = 0; j < maze[0].length; j++) {
+        currentMaze = Arrays.copyOf(baseMaze,baseMaze.length);
+    }
+    public static void loadCurrentMaze() {
+        for (int i = 0; i < currentMaze.length; i++) {     //prints the selected maze
+            for (int j = 0; j < currentMaze[0].length; j++) {
                 if (i == Pl.currentRow && j == Pl.currentCol) {
                     System.out.print("P");
-                }
-                else {
-                    System.out.print(maze[i][j]);
+                } else {
+                    System.out.print(currentMaze[i][j]);
                 }
             }
             System.out.println();
@@ -51,38 +63,134 @@ public class Main {
     public static void validPosition(char choice) {
         switch (choice) {
             case 'A':           //A (Left)
-                if (Pl.currentCol - 1 >= 0 && Gm.passable(maze, Pl,0,-1)) {
+                if (Pl.currentCol - 1 >= 0 && Gm.passable(currentMaze, Pl,0,-1)) {
                     Pl.currentCol -= 1;
                 }
                 break;
             case 'W':           //W (Up)
-                if (Pl.currentRow - 1 >= 0 && Gm.passable(maze, Pl,-1,0)) {
+                if (Pl.currentRow - 1 >= 0 && Gm.passable(currentMaze, Pl,-1,0)) {
                     Pl.currentRow -= 1;
                 }
                 break;
             case 'S':           //S (Down)
-                if (Pl.currentRow + 1 < maze.length && Gm.passable(maze, Pl,1,0)) {
+                if (Pl.currentRow + 1 < currentMaze.length && Gm.passable(currentMaze, Pl,1,0)) {
                     Pl.currentRow += 1;
                 }
                 break;
             case 'D':           //D (Right)
-                if (Pl.currentCol + 1 < maze[0].length && Gm.passable(maze, Pl,0,1)) {
+                if (Pl.currentCol + 1 < currentMaze[0].length && Gm.passable(currentMaze, Pl,0,1)) {
                     Pl.currentCol += 1;
                 }
                 break;
         }
     }
-    public static void game() {
+    public static void Items() {
         while (true) {
-            Scanner sc = new Scanner(System.in);
-            loadMaze();         //loads maze
+            int drop = 0;
+            int back = 1;
+            System.out.println("Items:");
+            if (!Pl.item1.isEmpty()) {
+                System.out.println("[1] " + Pl.item1);
+                drop++;
+                back++;
+            }
+            if (!Pl.item2.isEmpty()) {
+                System.out.println("[2] " + Pl.item2);
+                drop++;
+                back++;
+            }
+            if (!Pl.item1.isEmpty()) {
+                drop++;
+                System.out.println("[" + drop + "] Drop Item");
+                back++;
+            }
+            System.out.println("[" + back + "] Back");
+            int choice = validInput(sc);
+            if (!Pl.item1.isEmpty() && choice == 1) {
+                Gm.useItem(Pl, Pl.item1, currentMaze, 1);
+                break;
+            }
+            else if (!Pl.item2.isEmpty() && choice == 2) {
+                Gm.useItem(Pl, Pl.item2, currentMaze, 2);
+                break;
+            }
+            else if (choice == drop && drop != 0) {
+                if (currentMaze[Pl.currentRow][Pl.currentCol] == '-') {
+                    dropItem();
+                }
+                else {
+                    System.out.println("You can't drop an item here! Please move to an open space to drop an item!");
+                }
+                break;
+            }
+            else if (choice == back) {
+                break;
+            }
+            else {
+                System.out.println("Please enter a different number.");
+            }
+        }
+    }
+    public static void dropItem() {
+        while (true) {
+            System.out.println("Which item will you drop?");
+            int back = 1;
+            if (!Pl.item1.isEmpty()) {
+                System.out.println("[1] " + Pl.item1);
+                back++;
+            }
+            if (!Pl.item2.isEmpty()) {
+                System.out.println("[2] " + Pl.item2);
+                back++;
+            }
+            System.out.println("[" + back + "] Back");
+            int choice = validInput(sc);
+            if (!Pl.item1.isEmpty() && choice == 1) {
+                Gm.dropItem(Pl, Pl.item1, currentMaze);
+                Pl.item1 = "";
+                if (!Pl.item2.isEmpty()) {
+                    Pl.item1 = Pl.item2;
+                    Pl.item2 = "";
+                }
+                break;
+            }
+            else if (!Pl.item2.isEmpty() && choice == 2) {
+                Gm.dropItem(Pl, Pl.item2, currentMaze);
+                Pl.item2 = "";
+                break;
+            }
+            else if (choice == back) {
+                break;
+            }
+        }
+    }
+    public static void game() {
+            loadBaseMaze();
+        while (true) {
+            loadCurrentMaze();         //loads maze
+            int overlapItemID = 0;
             System.out.println("Health: " + Pl.health + "%\t\tStamina: " + Pl.stamina + "%");        //Displays HP and Stamina
             //System.out.println("Coords: ("+ Pl.currentRow + "),(" + Pl.currentCol + ")");
+
             System.out.println("Enter your choice, or press A,W,S,D to move");
+            switch (currentMaze[Pl.currentRow][Pl.currentCol]) {
+                case 'V':
+                    System.out.println(Gm.BlueColor + "You found a Potion of Vigor! Enter 4 to pick it up!" + Gm.ResetColor);
+                    overlapItemID = 1;
+                    break;
+                case 'K':
+                    System.out.println(Gm.BlueColor + "You found a key! Enter 4 to pick it up!" + Gm.ResetColor);
+                    overlapItemID = 2;
+                    break;
+
+            }
             System.out.println("[1] Mass Move");
             System.out.println("[2] Items");
             System.out.println("[3] Options (Temp Exit)");
-            String c = sc.nextLine().toUpperCase();
+            if (overlapItemID > 0) {
+                System.out.println(Gm.BlueColor + "[4] Pick up Item" + Gm.ResetColor);
+            }
+            String c = sc.next().toUpperCase();
             if (c.isEmpty()) {
                 System.out.println("Please enter a character or number!");
                 continue;
@@ -99,10 +207,21 @@ public class Main {
                     System.out.println("Mass moving!");     //placeholder
                     break;
                 case '2':
-                    System.out.println("Items!");           //placeholder
+                    Items();           //placeholder
                     break;
                 case '3':           //placeholder
                     return;
+                case '4':
+                    if (overlapItemID > 0) {
+                        Gm.addItem(overlapItemID, Pl, currentMaze);
+                    }
+                    else {
+                        System.out.println("Please enter a different character!");
+                    }
+                    break;
+                default:
+                    System.out.println("Please enter a different character!");
+                    break;
             }
         }
     }
@@ -110,7 +229,6 @@ public class Main {
         String fileName = "titletext.txt";
         Pl.setBaseStats();
         while (true) {
-            Scanner sc = new Scanner(System.in);
             try {
                 BufferedReader reader = new BufferedReader(new FileReader(fileName));
                 String line;
@@ -131,6 +249,7 @@ public class Main {
             switch (choi) {
                 case 1:
                     System.out.println("Starting Game..");
+                    Pl.basePosition(Pl, Pl.LVL);
                     game();
                     break;
                 case 2:
