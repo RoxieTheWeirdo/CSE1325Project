@@ -1,0 +1,23 @@
+* Item Menu has been added!
+  - Hold up to 2 items
+  - A back button is present and is always 1 + (inventory size + drop)
+  - Drop items through this menu
+      - You can't drop items onto an already placed item
+      - The dropped item stays in place and acts like a regular item
+      
+* Two Items have been added
+  - Potion of Vigor
+      - Restores 50HP, consumed upon use
+      - Cannot exceed maximum HP (100)
+      - Fails if HP is already 100 and is not consumed
+  - Key
+      - Unlocks Key Doors, consumed if unlocked
+      - Checks all 4 sides of player for an unlockable door
+      - Doesn't check places that are Out of bounds
+      
+  * Smaller Changes:
+    - Made the scanner available for the entire Main.java file, you dont need to declare it every function
+    - Fixed a bug where navigating to another menu causes the game screen menu to print twice
+    - Made default maze starting positions easier to modify and customize for each level
+    - Changed Maze lvl 2 (Test level) to have more room to test new features out
+  
