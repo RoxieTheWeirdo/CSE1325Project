@@ -16,6 +16,7 @@
       - Unlocks Key Doors, consumed if unlocked
       - Checks all 4 sides of player for an unlockable door
       - Doesn't check places that are Out of bounds
+      - Fails if no key doors are nearby and is not consumed
 
 * Added the key door block "X"
       
