@@ -6,6 +6,7 @@ public class Player {
     int LVL;
     String item1;
     String item2;
+    String killer;
     public void setBaseStats() {            //default stats loaded at beginning of program
         health = 100;
         stamina = 100;
@@ -14,6 +15,7 @@ public class Player {
         LVL = 1;
         item1 ="";
         item2 ="";
+        killer ="";
     }
     public void basePosition(Player Pl, int LVL) {
         if (LVL == 1) {
@@ -26,7 +28,7 @@ public class Player {
         }
     }
     //Function must be called each time player takes damage
-    public void Death(String killer) {    //Checks if player is dead, killer is cause of death
+    public void Death(int health, String killer) {    //Checks if player is dead, killer is cause of death
         if(health == 0) {
         System.out.println("\t\tYou have died");
             switch(killer) {
@@ -44,12 +46,17 @@ public class Player {
             break;
             }
         Scanner continues = new Scanner(System.in);
-        System.out.println("\tType ok to continue");
-        String okInput = continues.nextLine();
-        if(okInput.equals("ok"))
-        reset();
+            while(true){
+            System.out.println("\tType ok to continue");
+            String okInput = continues.nextLine();
+            if(okInput.equals("ok"))
+                break;
+            }   
+            resetPlayer();
+            
         }      
     }
+    
     public void resetPlayer() { //player reset to starting point after death
         System.out.println("\n\nYou awaken and see that you have returned to the same spot where you fell into the maze");
         p1.setBaseStats(p1, p1.LVL);
