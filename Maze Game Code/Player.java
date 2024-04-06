@@ -26,20 +26,20 @@ public class Player {
         }
     }
     //Function must be called each time player takes damage
-    public void Death(killer) {    //Checks if player is dead, killer is cause of death
+    public void Death(String killer) {    //Checks if player is dead, killer is cause of death
         if(health == 0) {
         System.out.println("\t\tYou have died");
             switch(killer) {
-            case wall:
+            case "wall":
             System.out.println("You have hit the wall too many times");
             break;
-            case rollingBall:
+            case "rollingBall":
             System.out.println("You were crushed by a large rolling ball");
             break;
-            case fallingCeilling:
+            case "fallingCeilling":
             System.out.println("You were flattened by a falling ceiling");
             break;
-            case minotaur:
+            case "minotaur":
             System.out.println("You have been mauled by the Minotaur");
             break;
             }
