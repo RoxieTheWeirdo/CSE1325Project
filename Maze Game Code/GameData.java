@@ -2,17 +2,26 @@ public class GameData {
         public String BlueColor = "\u001B[34m";
         //public String RedColor = "\u001B[31m";
         public String ResetColor = "\u001B[0m";
-    public boolean passable(char[][] maze, Player Pl,int offsetRow, int offsetCol) {
+    public boolean passable(char[][] maze, Player Pl,int offsetRow, int offsetCol, String moveType) {
         if (maze[Pl.currentRow + offsetRow][Pl.currentCol + offsetCol] == '█') {        //Basic Wall
-            System.out.println("Invalid Position! (You'd take damage normally)");       //can modify more blocks later (breakable, ball, etc)
+            if (moveType.equals("Reg")) {
+                System.out.println("You hit a wall and took 5 damage!");       //can modify more blocks later (breakable, ball, etc)
+                Pl.health -= 5;
+            }
             return false;
         }
         else if (maze[Pl.currentRow + offsetRow][Pl.currentCol + offsetCol] == '▓') {   //Breakable Wall
-            System.out.println("Invalid Position! (You'd take damage normally)");
+            if (moveType.equals("Reg")) {
+                System.out.println("You hit a wall and took 5 damage!");       //can modify more blocks later (breakable, ball, etc)
+                Pl.health -= 5;
+            }
             return false;
         }
         else if (maze[Pl.currentRow + offsetRow][Pl.currentCol + offsetCol] == 'X') {   //Key Door
-            System.out.println("Invalid Position! (You'd take damage normally)");
+            if (moveType.equals("Reg")) {
+                System.out.println("You hit a wall and took 5 damage!");       //can modify more blocks later (breakable, ball, etc)
+                Pl.health -= 5;
+            }
             return false;
         }
         return true;
@@ -90,6 +99,7 @@ public class GameData {
                 break;
             case "Key":
                 currentMaze[Pl.currentRow][Pl.currentCol] = 'K';
+
                 System.out.println("You dropped a Key!");
                 break;
             default:
@@ -105,5 +115,13 @@ public class GameData {
             Pl.item2 = name;
         }
         currentMaze[Pl.currentRow][Pl.currentCol] = '-';
+    }
+    public boolean validMovement(char[] mov) {
+        for (char c : mov) {
+            if (c != 'A' && c != 'W' && c != 'S' && c != 'D') {
+                return false;
+            }
+        }
+        return true;
     }
 }
