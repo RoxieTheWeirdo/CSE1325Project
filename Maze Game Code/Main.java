@@ -170,54 +170,53 @@ public class Main {
             System.out.println("Enter a list of movements in the directions you want to go (AWSD), or type B to go back: ");
             String mass = sc.nextLine().toUpperCase();
             char[] movements = mass.toCharArray();
-            if (movements[0] == 'B') {
-                break;
-            }
-            else if (Gm.validMovement(movements)) {
-                for (char c : movements) {
-                    switch (c) {
-                        case 'A':           //A (Left)
-                            if (Pl.currentCol - 1 >= 0 && Gm.passable(currentMaze, Pl,0,-1, "Mass")) {
-                                Pl.currentCol -= 1;
-                            }
-                            else {
-                                System.out.println("You have taken serious damage from mass moving!!");
-                                return;
-                            }
-                            break;
-                        case 'W':           //W (Up)
-                            if (Pl.currentRow - 1 >= 0 && Gm.passable(currentMaze, Pl,-1,0,"Mass")) {
-                                Pl.currentRow -= 1;
-                            }
-                            else {
-                                System.out.println("You have taken serious damage from mass moving!");
-                                return;
-                            }
-                            break;
-                        case 'S':           //S (Down)
-                            if (Pl.currentRow + 1 < currentMaze.length && Gm.passable(currentMaze, Pl,1,0,"Mass")) {
-                                Pl.currentRow += 1;
-                            }
-                            else {
-                                System.out.println("You have taken serious damage from mass moving!");
-                                return;
+            try {
+                if (movements[0] == 'B') {
+                    break;
+                } else if (Gm.validMovement(movements)) {
+                    for (char c : movements) {
+                        switch (c) {
+                            case 'A':           //A (Left)
+                                if (Pl.currentCol - 1 >= 0 && Gm.passable(currentMaze, Pl, 0, -1, "Mass")) {
+                                    Pl.currentCol -= 1;
+                                } else {
+                                    System.out.println("You have taken serious damage from mass moving!!");
+                                    return;
+                                }
+                                break;
+                            case 'W':           //W (Up)
+                                if (Pl.currentRow - 1 >= 0 && Gm.passable(currentMaze, Pl, -1, 0, "Mass")) {
+                                    Pl.currentRow -= 1;
+                                } else {
+                                    System.out.println("You have taken serious damage from mass moving!");
+                                    return;
+                                }
+                                break;
+                            case 'S':           //S (Down)
+                                if (Pl.currentRow + 1 < currentMaze.length && Gm.passable(currentMaze, Pl, 1, 0, "Mass")) {
+                                    Pl.currentRow += 1;
+                                } else {
+                                    System.out.println("You have taken serious damage from mass moving!");
+                                    return;
 
-                            }
-                            break;
-                        case 'D':           //D (Right)
-                            if (Pl.currentCol + 1 < currentMaze[0].length && Gm.passable(currentMaze, Pl,0,1,"Mass")) {
-                                Pl.currentCol += 1;
-                            }
-                            else {
-                                System.out.println("You have taken serious damage from mass moving!");
-                                return;
-                            }
-                            break;
+                                }
+                                break;
+                            case 'D':           //D (Right)
+                                if (Pl.currentCol + 1 < currentMaze[0].length && Gm.passable(currentMaze, Pl, 0, 1, "Mass")) {
+                                    Pl.currentCol += 1;
+                                } else {
+                                    System.out.println("You have taken serious damage from mass moving!");
+                                    return;
+                                }
+                                break;
+                        }
                     }
+                    break;
+                } else {
+                    System.out.println("Please only enter 'A', 'W', 'S', or 'D' in the movement list!\nExample: \"AAWWD\" (left, left, up, up, right)");
                 }
-                break;
             }
-            else {
+            catch (Exception e) {
                 System.out.println("Please only enter 'A', 'W', 'S', or 'D' in the movement list!\nExample: \"AAWWD\" (left, left, up, up, right)");
             }
         }
