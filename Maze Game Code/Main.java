@@ -39,8 +39,8 @@ public class Main {
                         {'█', '-', '-', '-', '-', '-', '-', '-', '-', '-', '█'},
                         {'█', '-', '-', '-', '-', '-', '-', '-', '-', '-', '█'},
                         {'█', '-', '-', '-', '-', 'X', '-', '-', '-', '-', '█'},
-                        {'█', 'K', '-', 'F', 'F', '-', '-', '-', '-', '-', '█'},
-                        {'█', 'K', '-', 'F', 'F', '-', '-', '-', '-', '-', '-'},
+                        {'█', 'K', '-', '-', '-', '-', '-', '-', '-', '-', '█'},
+                        {'█', 'K', '-', '-', '-', '-', '-', '-', '-', '-', '-'},
                         {'█', 'K', '-', '-', '-', '-', '█', 'X', '█', '-', '-'},
                         {'█', '-', '-', '-', '-', '-', '█', '-', '█', '-', '-'}
                 };
@@ -222,8 +222,8 @@ public class Main {
         }
     }
     public static void game() {
-            loadBaseMaze();
-        while (true) {
+        loadBaseMaze();
+        while (Pl.health > 0) {
             loadCurrentMaze();         //loads maze
             int overlapItemID = 0;
             System.out.println("Health: " + Pl.health + "%\t\tStamina: " + Pl.stamina + "%");        //Displays HP and Stamina
@@ -256,6 +256,7 @@ public class Main {
                 case 'W':
                 case 'S':
                 case 'D':
+                    Pl.stamina -= 2;
                     validPosition(choice);
                     break;
                 case '1':
@@ -279,44 +280,51 @@ public class Main {
                     break;
             }
         }
+        Death(0,"wall");
     }
 
-     public void resetPlayer() { //player reset to starting point after death
+    public static void resetPlayer() { //player reset to starting point after death
         System.out.println("\n\nYou awaken and see that you have returned to the same spot where you fell into the maze");
+        int TempLVL = Pl.LVL;
         Pl.setBaseStats();
+        Pl.LVL = TempLVL;
+        Pl.basePosition(Pl, Pl.LVL);
         game();
-        }
+    }
 
     //Function must be called each time player takes damage
-    public void Death(int health, String killer) {    //Checks if player is dead, killer is cause of death
+    public static void Death(int health, String killer) {    //Checks if player is dead, killer is cause of death
         if(health == 0) {
-        System.out.println("\t\tYou have died");
+            System.out.println("\t\tYou have died");
             switch(killer) {
-            case "wall":
-            System.out.println("You have hit the wall too many times");
-            break;
-            case "rollingBall":
-            System.out.println("You were crushed by a large rolling ball");
-            break;
-            case "fallingCeilling":
-            System.out.println("You were flattened by a falling ceiling");
-            break;
-            case "minotaur":
-            System.out.println("You have been mauled by the Minotaur");
-            break;
+                case "wallmass":
+                    System.out.println("You ran into the wall!");
+                    break;
+                case "wallreg":
+                    System.out.println("You have hit the wall!");
+                    break;
+                case "rollingBall":
+                    System.out.println("You were crushed by a large rolling ball");
+                    break;
+                case "fallingCeilling":
+                    System.out.println("You were flattened by a falling ceiling");
+                    break;
+                case "minotaur":
+                    System.out.println("You have been mauled by the Minotaur");
+                    break;
             }
-        Scanner continues = new Scanner(System.in);
-            while(true){
-            System.out.println("\tType ok to continue");
-            String okInput = continues.nextLine();
-            if(okInput.equals("ok"))
-                break;
-            }   
+            while (true) {
+                sc.nextLine();
+                System.out.println("\tType ok to continue");
+                String okInput = sc.nextLine();
+                if(okInput.equals("ok"))
+                    break;
+            }
             resetPlayer();
-            
-        }      
+
+        }
     }
-    
+
     public static void main(String[] args) {
         String fileName = "titletext.txt";
         while (true) {
