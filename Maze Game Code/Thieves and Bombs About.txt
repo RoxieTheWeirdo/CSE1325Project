@@ -1,0 +1,23 @@
+* Bombs? You want em? It's yours my friend!
+    - Bombs are denoted by a B on the map
+    - The player can pick up a bomb like any other item
+    - The player can choose to use the bomb or drop it like any item
+    - If the player uses a bomb, it will place a bomb like an item
+        - In 3 moves (Regular or Mass), the bomb will explode and break breakable walls
+        - If the player stands on top of the bomb as it explodes, deals 75 damage
+        - IF the player is 1 block away from the bomb, deals 35 damage
+    - A deployed bomb is indicated on the map
+        - If red, 2-3 turns to detonate
+        - If dark red, 1 turn to detonate
+    - A reminder for when it will detonate is shown at all times
+    - Only one bomb can be deployed at a time
+* Thieves!
+    - Thieves will wander around the map, there is no fixed number for thieves per maze
+    - To defeat a thief, use the new pickaxe item
+        - Pickaxe item breaks upon killing a thief
+    - If a thief wanders over an item, it will pick that item up and carry it around
+         - The only way to get it back is to use a pickaxe
+    - If a thief encounters a player on the same place as it, it will slash at them with a dagger
+    - If a thief is holding an item, they will turn blue!
+
+* Fixed a small bug with the key item and detecting if it's trying to find a key door out of bounds.
