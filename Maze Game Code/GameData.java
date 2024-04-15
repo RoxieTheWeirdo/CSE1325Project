@@ -103,6 +103,7 @@ public class GameData {
         }
     }
 
+
     public void addItem(int ID, Player Pl, char[][] currentMaze) {
         if (Pl.item2.isEmpty()) {
             switch (ID) {
@@ -187,19 +188,19 @@ public class GameData {
             currentMaze[B.currentRow][B.currentCol + 1] = '-';
         }
         if (B.currentRow == Pl.currentRow && B.currentCol == Pl.currentCol) {
-            Pl.restoreHealth(75);
+            Pl.takeDamage(75);
         }
         if (B.currentRow == Pl.currentRow - 1 && B.currentCol == Pl.currentCol) {
-            Pl.restoreHealth(35);
+            Pl.takeDamage(35);
         }
         if (B.currentRow == Pl.currentRow + 1 && B.currentCol == Pl.currentCol) {
-            Pl.restoreHealth(35);
+            Pl.takeDamage(35);
         }
         if (B.currentRow == Pl.currentRow && B.currentCol == Pl.currentCol - 1) {
-            Pl.restoreHealth(35);
+            Pl.takeDamage(35);
         }
         if (B.currentRow == Pl.currentRow && B.currentCol == Pl.currentCol + 1) {
-            Pl.restoreHealth(35);
+            Pl.takeDamage(35);
         }
     }
 
