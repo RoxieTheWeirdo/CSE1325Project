@@ -17,6 +17,9 @@ public class GameData {
                     System.out.println("You hit a wall and took 5 damage!");
                     Pl.takeDamage(5);
                 }
+				if (moveType.equals("mass")) {
+					Pl.takeDamage(5);
+				}
                 return false;
             default:
                 return true;
