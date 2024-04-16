@@ -46,27 +46,27 @@ public class Player {
         if (stamina >= Math.pow(amount, 2)) {
             stamina -= Math.pow(amount, 2);	
             System.out.println("\nUsed " + Math.pow(amount, 2) + " stamina, remaining stamina: " + stamina);
-		}
-        if (stamina < 0){
-			stamina -= Math.pow(amount, 2);	
-			takeDamage(amount*2);
-            System.out.println("Used " + Math.pow(amount, 2) + " stamina, remaining stamina: " + stamina);
-			System.out.println("Stamina is too low, you are taking damage from exhaustion");			
+	}
+        else if (stamina <= 0){
+		stamina -= Math.pow(amount, 2);	
+		takeDamage(amount*2);
+            	System.out.println("Used " + Math.pow(amount, 2) + " stamina, remaining stamina: " + stamina);
+		System.out.println("Stamina is too low, you are taking damage from exhaustion");			
 		
-		}else {
-			while((stamina - Math.pow(count, 2))<=0){ //creates a counter for the amount of spaces the player traveled without stamina
-				if (count == 1)	
-					break;
-				count--;
-				
-			}
-			
-			count = amount - count;	
+	}else{
+		while((stamina - Math.pow(count, 2))<=0){ //creates a counter for the amount of spaces the player traveled without stamina
+			if (count == 1)	
+				break;
 			count--;
-			stamina -= Math.pow(amount, 2);
-            takeDamage(count*2);			
-            System.out.println("Used " + Math.pow(amount, 2) + " stamina, remaining stamina: " + stamina);
-            System.out.println("Stamina is too low, you are taking damage from exhaustion");
+				
+		}
+			
+		count = amount - count;	
+		count--;
+		stamina -= Math.pow(amount, 2);
+            	takeDamage(count*2);			
+           	System.out.println("Used " + Math.pow(amount, 2) + " stamina, remaining stamina: " + stamina);
+           	System.out.println("Stamina is too low, you are taking damage from exhaustion");
         }
     }
 
@@ -74,7 +74,7 @@ public class Player {
         if(stamina < 100){
 		stamina += amount;
         if (stamina > 100) stamina = 100;
-        System.out.println(amount + " Stamina restored");
+        	System.out.println(amount + " Stamina restored");
 		}
 	}
 
