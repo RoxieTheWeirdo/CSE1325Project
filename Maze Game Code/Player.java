@@ -1,6 +1,7 @@
 public class Player {
     double health;
     double stamina;
+    double staminaRegen;
     int currentRow;
     int currentCol;
     int LVL;
@@ -10,6 +11,7 @@ public class Player {
     public void setBaseStats() {            //default stats loaded at beginning of program
         health = 100;
         stamina = 100;
+        staminaRegen = 3;
         currentRow = 0;
         currentCol = 0;
         LVL = 2;
@@ -30,29 +32,51 @@ public class Player {
     public void takeDamage(double damage) {
         health -= damage;
         if (health <= 0) {
-            System.out.println("Player has died.");
+            System.out.println("\n\nPlayer takes " + damage + " damage, health now: " + health);
             // Additional death handling logic here, if needed
         } else {
-            System.out.println("Player takes " + damage + " damage, health now: " + health);
+            System.out.println("\n\nPlayer takes " + damage + " damage, health now: " + health);
         }
     }
     public boolean isAlive() {
         return health > 0;
     }
     public void useStamina(double amount) {
-        if (stamina >= amount) {
-            stamina -= amount;
-            System.out.println("Used " + amount + " stamina, remaining stamina: " + stamina);
-        } else {
-            System.out.println("Not enough stamina to perform this action!");
+        double count = amount;
+        if (stamina >= Math.pow(amount, 2)) {
+            stamina -= Math.pow(amount, 2);	
+            System.out.println("\nUsed " + Math.pow(amount, 2) + " stamina, remaining stamina: " + stamina);
+		}
+        if (stamina < 0){
+			stamina -= Math.pow(amount, 2);	
+			takeDamage(amount*2);
+            System.out.println("Used " + Math.pow(amount, 2) + " stamina, remaining stamina: " + stamina);
+			System.out.println("Stamina is too low, you are taking damage from exhaustion");			
+		
+		}else {
+			while((stamina - Math.pow(count, 2))<=0){ //creates a counter for the amount of spaces the player traveled without stamina
+				if (count == 1)	
+					break;
+				count--;
+				
+			}
+			
+			count = amount - count;	
+			count--;
+			stamina -= Math.pow(amount, 2);
+            takeDamage(count*2);			
+            System.out.println("Used " + Math.pow(amount, 2) + " stamina, remaining stamina: " + stamina);
+            System.out.println("Stamina is too low, you are taking damage from exhaustion");
         }
     }
 
     public void restoreStamina(double amount) {
-        stamina += amount;
+        if(stamina < 100){
+		stamina += amount;
         if (stamina > 100) stamina = 100;
-        System.out.println("Stamina restored to: " + stamina);
-    }
+        System.out.println(amount + " Stamina restored");
+		}
+	}
 
     public void restoreHealth(double amount) {
         health += amount;
