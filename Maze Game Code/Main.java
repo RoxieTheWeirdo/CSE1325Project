@@ -225,6 +225,8 @@ public class Main {
                     break;
                 } else if (Gm.validMovement(movements)) {
                     B.duration -= 1;
+                    Gm.thiefMovement(T, currentMaze);
+                    Gm.thiefPickup(T,currentMaze);
                     for (char c : movements) {
                         switch (c) {
                             case 'A':           //A (Left)
