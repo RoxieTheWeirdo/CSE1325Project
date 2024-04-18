@@ -77,17 +77,6 @@ public class Main {
                     System.out.print("P");
                     continue;
                 }
-                for (GameData.Thief thief : T) {
-                    if (i == thief.ThiefRow && j == thief.ThiefCol) {
-                        if (!thief.storedItem.isEmpty()) {
-                            System.out.print(Gm.BlueColor + "T" + Gm.ResetColor);
-                        }
-                        else {
-                            System.out.print("T");
-                        }
-                        thiefSpawn = true;
-                    }
-                }
                 if (i == B.currentRow && j == B.currentCol) {
                     if (B.duration >= 2) {
                         System.out.print(Gm.RedColor + "B" + Gm.ResetColor);
@@ -96,6 +85,18 @@ public class Main {
                         System.out.print(Gm.DarkRedColor + "B" + Gm.ResetColor);
                     }
                     continue;
+                }
+                if (T != null) {
+                    for (GameData.Thief thief : T) {
+                        if (i == thief.ThiefRow && j == thief.ThiefCol && !thiefSpawn) {
+                            if (!thief.storedItem.isEmpty()) {
+                                System.out.print(Gm.BlueColor + "T" + Gm.ResetColor);
+                            } else {
+                                System.out.print("T");
+                            }
+                            thiefSpawn = true;
+                        }
+                    }
                 }
                 if (!thiefSpawn) {
                     System.out.print(currentMaze[i][j]);
@@ -218,15 +219,17 @@ public class Main {
             System.out.println("Enter a list of movements in the directions you want to go (AWSD), or type B to go back: ");
             String mass = sc.nextLine().toUpperCase();
             char[] movements = mass.toCharArray();
-            int moveCounter = 0;
+            int moveCounter;
             try {
                 moveCounter = movements.length;
                 if (movements[0] == 'B') {
                     break;
                 } else if (Gm.validMovement(movements)) {
                     B.duration -= 1;
-                    Gm.thiefMovement(T, currentMaze);
-                    Gm.thiefPickup(T,currentMaze);
+                    if (T != null) {
+                        Gm.thiefMovement(T, currentMaze);
+                        Gm.thiefPickup(T, currentMaze);
+                    }
                     for (char c : movements) {
                         switch (c) {
                             case 'A':           //A (Left)
@@ -286,10 +289,13 @@ public class Main {
     public static void game() {
         B.duration = -1;
         if (T != null) {
-            T.clear();
+                T.clear();          //clears thieves from past levels/reload levels
         }
         loadBaseMaze();
         while (Pl.health > 0) {
+            if (currentMaze[Pl.currentRow][Pl.currentCol] == 'E') {
+                break;
+            }
             if (B.duration == 0) {
                 System.out.println(Gm.DarkRedColor + "A nearby Bomb has detonated!" + Gm.ResetColor);
                 Gm.detonateBomb(currentMaze, Pl);
@@ -301,17 +307,19 @@ public class Main {
                     break;
                 }
             }
-            for (GameData.Thief thief : T) {
-                if (Pl.currentRow == thief.ThiefRow && Pl.currentCol == thief.ThiefCol) {
-                    System.out.println("The nearby thief has slashed you with a dagger!");
-                    Pl.takeDamage(3);
-                    if (Pl.health <= 0) {
-                        Pl.health = 0;
-                        break;
+            if (T != null) {
+                for (GameData.Thief thief : T) {
+                    if (Pl.currentRow == thief.ThiefRow && Pl.currentCol == thief.ThiefCol) {
+                        System.out.println("The nearby thief has slashed you with a dagger!");
+                        Pl.takeDamage(3);
+                        if (Pl.health <= 0) {
+                            Pl.health = 0;
+                            break;
+                        }
                     }
                 }
             }
-            loadCurrentMaze();         //loads maze
+            loadCurrentMaze(); //loads maze
             int overlapItemID = 0;
             if (B.duration > 0) {
                 if (B.currentRow == Pl.currentRow && B.currentCol == Pl.currentCol) {
@@ -354,7 +362,7 @@ public class Main {
             }
             System.out.println("[1] Mass Move");
             System.out.println("[2] Items");
-            System.out.println("[3] Options (Temp Exit)");
+            System.out.println("[3] Options");
             if (overlapItemID > 0) {
                 System.out.println(Gm.BlueColor + "[4] Pick up Item" + Gm.ResetColor);
             }
@@ -369,19 +377,27 @@ public class Main {
                 case 'W':
                 case 'S':
                 case 'D':
+                    GameData.clearScreen();
                     B.duration -= 1;
                     validPosition(choice);
-                    Gm.thiefMovement(T, currentMaze);
-                    Gm.thiefPickup(T,currentMaze);
+                    if (T != null) {
+                        Gm.thiefMovement(T, currentMaze);
+                        Gm.thiefPickup(T, currentMaze);
+                    }
                     break;
                 case '1':
+                    GameData.clearScreen();
                     massMove();
                     break;
                 case '2':
+                    GameData.clearScreen();
                     Items();
                     break;
                 case '3':           //placeholder
-                    return;
+                    if (options() == 1) {
+                        return;
+                    }
+                    break;
                 case '4':
                     if (overlapItemID > 0) {
                         Gm.addItem(overlapItemID, Pl, currentMaze);
@@ -395,7 +411,43 @@ public class Main {
                     break;
             }
         }
-        Death(0,"wall");
+        if (Pl.health <= 0) {
+            Death(0, "wall");
+        }
+    }
+    public static int options() {
+        while (true) {
+            GameData.clearScreen();
+            System.out.println("Options: ");
+            System.out.println("[1] Reset Level");
+            System.out.println("[2] Quit Game");
+            System.out.println("[3] Back");
+            int choi = validInput(sc);
+            switch (choi) {
+                case 1:
+                    System.out.println("Reseting Game..");
+                    int LVL = Pl.LVL;
+                    Pl.setBaseStats();
+                    Pl.LVL = LVL;
+                    GameData.clearScreen();
+                    if (T != null) {
+                        T.clear();          //clears thieves from past levels/reload levels
+                    }
+                    Pl.basePosition(Pl, Pl.LVL);
+                    loadBaseMaze();
+                    return 0;
+                case 2:
+                    GameData.clearScreen();
+                    System.out.println("Back to Main Menu...");
+                    return 1;
+                case 3:
+                    GameData.clearScreen();
+                    return 0;
+                default:
+                    GameData.clearScreen();
+                    System.out.println("Please enter a different number.");
+            }
+        }
     }
 
     public static void resetPlayer() { //player reset to starting point after death
@@ -466,6 +518,7 @@ public class Main {
             int choi = validInput(sc);
             switch (choi) {
                 case 1:
+                    GameData.clearScreen();
                     System.out.println("Starting Game..");
                     Pl.basePosition(Pl, Pl.LVL);
                     game();
