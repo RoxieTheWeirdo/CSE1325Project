@@ -5,7 +5,9 @@ public class GameData {
     public String BlueColor = "\u001B[34m";
     public String RedColor = "\u001B[31m";
     public String DarkRedColor = "\u001B[31;2m";
+    public String GreenColor = "\u001B[32m";
     public String ResetColor = "\u001B[0m";
+
 
     public boolean passable(char[][] maze, Player Pl,int offsetRow, int offsetCol, String moveType) {
         char tile = maze[Pl.currentRow + offsetRow][Pl.currentCol + offsetCol];
@@ -14,12 +16,11 @@ public class GameData {
             case '▓': // Breakable Wall
             case 'X': // Key Door
                 if (moveType.equals("Reg")) {
-                    System.out.println("You hit a wall and took 5 damage!");
                     Pl.takeDamage(5);
                 }
-		if (moveType.equals("mass")) {
-		    Pl.takeDamage(5);
-		}
+                if (moveType.equals("mass")) {
+                    Pl.takeDamage(5);
+                }
                 return false;
             default:
                 return true;
@@ -108,6 +109,7 @@ public class GameData {
 
 
     public void addItem(int ID, Player Pl, char[][] currentMaze) {
+        clearScreen();
         if (Pl.item2.isEmpty()) {
             switch (ID) {
                 case 1:
@@ -133,6 +135,7 @@ public class GameData {
     }
 
     public void dropItem(Player Pl, String Name, char[][] currentMaze) {
+        clearScreen();
         switch (Name) {
             case "Potion of Vigor":
                 currentMaze[Pl.currentRow][Pl.currentCol] = 'V';
@@ -257,27 +260,27 @@ public class GameData {
             else {
                 ThiefDown = '█';
             }
-                if (thief.direction == 'N') {
-                    ThiefDown = '█';
-                } else if (thief.direction == 'E') {
-                    ThiefLeft = '█';
-                } else if (thief.direction == 'S') {
-                    ThiefUp = '█';
-                } else if (thief.direction == 'W') {
-                    ThiefRight = '█';
-                }
-                if (ThiefUp == '▓' || ThiefUp == 'X') {
-                    ThiefUp = '█';
-                }
-                if (ThiefDown == '▓' || ThiefDown == 'X') {
-                    ThiefDown = '█';
-                }
-                if (ThiefLeft == '▓' || ThiefLeft == 'X') {
-                    ThiefLeft = '█';
-                }
-                if (ThiefRight == '▓' || ThiefRight == 'X') {
-                    ThiefRight = '█';
-                }
+            if (thief.direction == 'N') {
+                ThiefDown = '█';
+            } else if (thief.direction == 'E') {
+                ThiefLeft = '█';
+            } else if (thief.direction == 'S') {
+                ThiefUp = '█';
+            } else if (thief.direction == 'W') {
+                ThiefRight = '█';
+            }
+            if (ThiefUp == '▓' || ThiefUp == 'X') {
+                ThiefUp = '█';
+            }
+            if (ThiefDown == '▓' || ThiefDown == 'X') {
+                ThiefDown = '█';
+            }
+            if (ThiefLeft == '▓' || ThiefLeft == 'X') {
+                ThiefLeft = '█';
+            }
+            if (ThiefRight == '▓' || ThiefRight == 'X') {
+                ThiefRight = '█';
+            }
             boolean success = false;
             while (!success) {
                 int choice = r.nextInt(4) + 1;
@@ -359,7 +362,7 @@ public class GameData {
         }
     }
     public void thiefDropItem(Thief T, char[][] currentMaze) {
-
+        clearScreen();
         switch (T.storedItem) {
             case "Key":
                 currentMaze[T.ThiefRow][T.ThiefCol] = 'K';
@@ -378,5 +381,8 @@ public class GameData {
                 System.out.println("The thief dropped a Pickaxe!");
                 break;
         }
+    }
+    public static void clearScreen() {
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
 }
