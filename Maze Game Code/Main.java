@@ -12,6 +12,7 @@ public class Main {
     public static char[][] baseMaze = null;
     public static Scanner sc = new Scanner(System.in);
     public static List<GameData.Thief> T;
+    static int[] fallingCeilling = new int[3]; //holds quordinates for the trap
     public static void loadBaseMaze() {
         switch (Pl.LVL) {
             case 1:
@@ -37,7 +38,7 @@ public class Main {
                 baseMaze = new char[][]{       //test level (Change Pl.LVL to 2 if you want to use this)
                         {'-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'X', '-', '-', '-', '-', },
                         {'-', '-', '▓', '-', '-', '-', '-', '█', '█', '█', '-', '-', '-', '-', '-', '█', '-', '-', '-', '-', },
-                        {'-', '▓', '-', '▓', '-', '-', '-', 'B', 'B', '█', '-', '█', '-', '-', '-', '█', '▓', '-', '-', '-', },
+                        {'-', '▓', '-', '▓', 'F', '-', '-', 'B', 'B', '█', '-', '█', '-', '-', '-', '█', '▓', '-', '-', '-', },
                         {'-', '-', '-', '-', '-', '-', '-', 'B', 'B', '█', '█', '█', 'X', '▓', '-', '█', '▓', '-', '-', '-', },
                         {'-', '-', '▓', '-', '-', '-', '-', 'B', 'B', '-', '-', '-', '-', '-', '▓', '█', '▓', '-', '-', '-', },
                         {'-', '▓', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '▓', '-', '█', '▓', '▓', '▓', 'X', },
@@ -97,6 +98,11 @@ public class Main {
                             thiefSpawn = true;
                         }
                     }
+                }
+                if(currentMaze[i][j] == 'F') {
+					currentMaze[i][j] = '-';
+					fallingCeilling[0] = i;
+					fallingCeilling[1] = j;
                 }
                 if (!thiefSpawn) {
                     System.out.print(currentMaze[i][j]);
@@ -320,6 +326,12 @@ public class Main {
                 }
             }
             loadCurrentMaze(); //loads maze
+            if((Pl.currentCol == fallingCeilling[0]) && (Pl.currentRow == fallingCeilling[1])) //check for trap at current location
+            Gm.FallingCeiling(Pl);
+			
+		    if(Pl.health <= 0)
+			Death(0,"fallingCeilling");
+            
             int overlapItemID = 0;
             if (B.duration > 0) {
                 if (B.currentRow == Pl.currentRow && B.currentCol == Pl.currentCol) {
@@ -452,6 +464,7 @@ public class Main {
 
     public static void resetPlayer() { //player reset to starting point after death
         System.out.println("\n\nYou awaken and see that you have returned to the same spot where you fell into the maze");
+        Gm.ActiveCeilingTrap = true;
         int TempLVL = Pl.LVL;
         Pl.setBaseStats();
         Pl.LVL = TempLVL;
