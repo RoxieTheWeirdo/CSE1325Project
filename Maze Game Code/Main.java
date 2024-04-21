@@ -326,7 +326,7 @@ public class Main {
                 }
             }
             loadCurrentMaze(); //loads maze
-            if((Pl.currentCol == fallingCeilling[0]) && (Pl.currentRow == fallingCeilling[1])) //check for trap at current location
+            if((Pl.currentCol == fallingCeilling[1]) && (Pl.currentRow == fallingCeilling[0])) //check for trap at current location
             Gm.FallingCeiling(Pl);
 			
 		    if(Pl.health <= 0)
