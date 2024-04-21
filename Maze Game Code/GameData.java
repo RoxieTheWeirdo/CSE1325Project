@@ -13,6 +13,10 @@ public class GameData {
     public boolean passable(char[][] maze, Player Pl,int offsetRow, int offsetCol, String moveType) {
         char tile = maze[Pl.currentRow + offsetRow][Pl.currentCol + offsetCol];
         switch (tile) {
+	    case 'M':
+		Pl.takeDamage(80);
+		System.out.println("You have been mauled by the Minotaur");
+		return false;
             case '█': // Basic Wall
             case '▓': // Breakable Wall
             case 'X': // Key Door
@@ -193,6 +197,21 @@ public class GameData {
         }
         if (B.currentCol + 1 < currentMaze[0].length && currentMaze[B.currentRow][B.currentCol + 1] == '▓') {
             currentMaze[B.currentRow][B.currentCol + 1] = '-';
+        }
+	if (currentMaze[B.currentRow][B.currentCol] == 'M') {
+            currentMaze[B.currentRow][B.currentCol] = 'K';
+        }
+        if (B.currentCol - 1 >= 0 && currentMaze[B.currentRow][B.currentCol - 1] == 'M') {
+            currentMaze[B.currentRow][B.currentCol - 1] = 'K';
+        }
+        if (B.currentRow - 1 >= 0 && currentMaze[B.currentRow - 1][B.currentCol] == 'M') {
+            currentMaze[B.currentRow - 1][B.currentCol] = 'K';
+        }
+        if (B.currentRow + 1 < currentMaze.length && currentMaze[B.currentRow + 1][B.currentCol] == 'M') {
+            currentMaze[B.currentRow + 1][B.currentCol] = 'K';
+        }
+        if (B.currentCol + 1 < currentMaze[0].length && currentMaze[B.currentRow][B.currentCol + 1] == 'M') {
+            currentMaze[B.currentRow][B.currentCol + 1] = 'K';
         }
         if (B.currentRow == Pl.currentRow && B.currentCol == Pl.currentCol) {
             Pl.takeDamage(75);
