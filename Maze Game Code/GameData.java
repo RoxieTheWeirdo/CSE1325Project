@@ -1,13 +1,14 @@
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 public class GameData {
     public String BlueColor = "\u001B[34m";
     public String RedColor = "\u001B[31m";
     public String DarkRedColor = "\u001B[31;2m";
     public String GreenColor = "\u001B[32m";
     public String ResetColor = "\u001B[0m";
-
+    boolean ActiveCeilingTrap = true;
 
     public boolean passable(char[][] maze, Player Pl,int offsetRow, int offsetCol, String moveType) {
         char tile = maze[Pl.currentRow + offsetRow][Pl.currentCol + offsetCol];
@@ -382,6 +383,43 @@ public class GameData {
                 break;
         }
     }
+
+    public void FallingCeiling(Player Pl) {
+        if (ActiveCeilingTrap == false) {
+            return;
+        }
+		String correctAnswer = new String();
+		System.out.println("The walls close around you and you hear a voice");
+		System.out.println("\n\t\t\t\tANSWER THIS RIDDLE CORRECTLY OR BE CRUSHED FOR YOUR IGNORANCE!\n");
+		Random s  = new Random();
+		int rand = s.nextInt(3);
+		switch(rand){
+			case 0:
+				System.out.println("\t\t\t\tTHE MORE THERE IS, THE LESS YOU SEE. WHAT IS IT?");
+				correctAnswer = "Darkness";
+				break;
+			case 1:
+				System.out.println("\t\t\t\tWHAT HAS KEYS BUT CAN'T OPEN LOCKS?");
+				correctAnswer = "Piano";
+				break;
+			case 2:
+				System.out.println("\t\t\t\tIM TALL WHEN IM YOUNG AND IM SHORT WHEN IM OLD. WHAT AM I?");
+				correctAnswer = "Candle";
+				break;
+		}
+		Scanner scan = new Scanner(System.in);
+		String playerAnswer = scan.nextLine();
+			if (playerAnswer.equalsIgnoreCase(correctAnswer)) {
+			ActiveCeilingTrap = false;
+            System.out.println("\n\t\t\t\tCORRECT! YOU MAY PROCEED.");
+			System.out.println("The walls are raised and you are free to move");
+		}else{
+			System.out.println("\n\t\t\t\tWRONG ANSWER!");
+			Pl.takeDamage(100);
+		}
+		
+	}
+    
     public static void clearScreen() {
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
