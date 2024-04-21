@@ -45,16 +45,16 @@ public class GameData {
                 break;
             case "Key":
                 if (Pl.currentCol + 1 < currentMaze[0].length && currentMaze[Pl.currentRow][Pl.currentCol + 1] == 'X') {
-                    currentMaze[Pl.currentRow][Pl.currentCol + 1] = '-';
+                    currentMaze[Pl.currentRow][Pl.currentCol + 1] = 'O';
                     System.out.println("You have unlocked a door!");
                 } else if (Pl.currentRow + 1 < currentMaze.length && currentMaze[Pl.currentRow + 1][Pl.currentCol] == 'X') {
-                    currentMaze[Pl.currentRow + 1][Pl.currentCol] = '-';
+                    currentMaze[Pl.currentRow + 1][Pl.currentCol] = 'O';
                     System.out.println("You have unlocked a door!");
                 } else if (Pl.currentRow - 1 >= 0 && currentMaze[Pl.currentRow - 1][Pl.currentCol] == 'X') {
-                    currentMaze[Pl.currentRow - 1][Pl.currentCol] = '-';
+                    currentMaze[Pl.currentRow - 1][Pl.currentCol] = 'O';
                     System.out.println("You have unlocked a door!");
                 } else if (Pl.currentCol - 1 >= 0 && currentMaze[Pl.currentRow][Pl.currentCol - 1] == 'X') {
-                    currentMaze[Pl.currentRow][Pl.currentCol - 1] = '-';
+                    currentMaze[Pl.currentRow][Pl.currentCol - 1] = 'O';
                     System.out.println("You have unlocked a door!");
                 } else {
                     System.out.println("There is no place nearby for the key to go into!");
