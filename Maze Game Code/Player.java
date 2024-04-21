@@ -14,7 +14,7 @@ public class Player {
         staminaRegen = 3;
         currentRow = 0;
         currentCol = 0;
-        LVL = 2;
+        LVL = 1;
         item1 ="";
         item2 ="";
         killer ="";
