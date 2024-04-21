@@ -35,27 +35,47 @@ public class Main {
                 };
                 break;
             case 2:
-                baseMaze = new char[][]{       //test level (Change Pl.LVL to 2 if you want to use this)
-                        {'-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'X', '-', '-', '-', '-', },
-                        {'-', '-', '▓', '-', '-', '-', '-', '█', '█', '█', '-', '-', '-', '-', '-', '█', '-', '-', '-', '-', },
-                        {'-', '▓', '-', '▓', 'F', '-', '-', 'B', 'B', '█', '-', '█', '-', '-', '-', '█', '▓', '-', '-', '-', },
-                        {'-', '-', '-', '-', 'M', '-', '-', 'B', 'B', '█', '█', '█', 'X', '▓', '-', '█', '▓', '-', '-', '-', },
-                        {'-', '-', '▓', '-', '-', '-', '-', 'B', 'B', '-', '-', '-', '-', '-', '▓', '█', '▓', '-', '-', '-', },
-                        {'-', '▓', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '▓', '-', '█', '▓', '▓', '▓', 'X', },
-                        {'-', '-', '▓', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '█', '-', '-', '-', '-', },
-                        {'-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '█', '-', '-', '-', '-', },
-                        {'V', '-', '-', '█', '█', '█', '-', '-', '-', 'K', 'K', '-', '-', '-', '-', '█', '-', '-', '-', '-', },
-                        {'V', '-', '-', '█', '-', '-', '-', '-', '-', 'K', 'K', '-', '-', '-', '-', '█', '-', '-', '-', '-', },
-                        {'V', '-', '-', '█', '-', '-', '-', '-', '-', '-', 'K', '-', '-', '-', '-', '-', '-', '-', '-', '-', },
-                        {'V', '-', '-', '█', '-', '-', '-', '-', '█', '█', '█', '█', '█', '-', '▓', '-', '-', '-', '-', '-', },
-                        {'V', '-', '-', '█', '-', '-', '-', '-', '-', 'I', '-', '-', '█', '-', '-', '▓', '-', '-', '-', '-', },
-                        {'V', '-', '-', '-', '▓', '-', '▓', '-', '-', 'I', '-', '█', '█', '-', '▓', '-', '-', '-', '-', '-', },
-                        {'V', '-', '-', '-', '-', '▓', '-', '-', '-', 'I', '█', '█', '█', '-', '-', '-', '-', '-', '-', '-', },
-                        {'X', '-', '-', '-', '-', '-', '-', '-', '-', '█', '█', '█', '█', '-', '-', '-', '-', '-', '-', 'X', }
+            baseMaze = new char[][]{           //level 2
+                    {'█', '█', '█', '█', '█', '█', '█', '█', '█', '-', '-', '-', '-', '█',},
+                    {'█', '-', '-', '-', '-', '-', '█', '-', '▓', '-', '█', '█', '-', '█',},
+                    {'█', '-', '█', '-', '-', '-', '█', 'K', '▓', '-', '-', '█', '█', '█',},
+                    {'█', '-', '█', '-', '-', '-', '-', '-', '▓', '-', '-', '-', '-', '█',},
+                    {'█', '-', '█', '█', '█', '█', '█', '█', '█', '-', '█', '-', 'B', '█',},
+                    {'█', '-', '█', '-', '-', '-', '█', '-', '-', '-', '█', '█', '-', '█',},
+                    {'█', '-', '█', '-', '-', '-', '█', '-', '█', '-', '█', '█', '-', '█',},
+                    {'█', '-', '█', '-', '-', '-', '█', '-', '█', '-', '█', '-', '-', '█',},
+                    {'█', '-', '-', '-', '█', '-', '█', '-', '█', '-', '█', '-', '-', '█',},
+                    {'█', '-', '-', '-', '█', '-', '█', '-', '█', '-', '█', '-', '-', '█',},
+                    {'█', '-', '█', '█', '█', 'V', '█', 'I', '█', '-', '█', '-', '-', '█',},
+                    {'█', '-', '-', '-', '▓', '-', '█', '-', '-', '-', '█', '-', '-', '█',},
+                    {'█', '-', '-', 'X', '▓', '-', '-', '-', '█', 'B', '█', '-', 'V', '█',},
+                    {'█', '-', '-', '█', '█', '█', '-', '-', '█', '█', '█', '█', '█', '█',},
+                    {'█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█',}
                 };
-                spawnThief('N', 4, 4, "");
-                spawnThief('N', 12, 8, "");       //also an option to make them spawn WITH an item
+                spawnThief('N', 12, 9, "");
                 break;
+            case 3:
+            
+            baseMaze = new char[][]{           //level 3
+                {'█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█',},
+                {'█', '-', '-', '-', '-', 'V', '-', 'V', '-', '-', 'I', '-', '-', '█',},
+                {'█', 'B', '-', '█', '█', '█', '█', '█', '█', '█', '█', '█', '-', '█',},
+                {'█', 'I', '-', '-', '-', '-', '-', '-', '-', '-', '-', '█', '-', '█',},
+                {'█', '█', '-', '-', '-', '-', '-', '-', '-', '-', '-', '█', '-', '█',},
+                {'█', '█', '-', '-', '▓', '▓', '▓', '█', '█', '█', '-', '-', '-', '█',},
+                {'█', '-', '-', '-', '█', '-', '-', '-', '█', '-', '-', '-', '-', '█',},
+                {'█', '-', '-', '-', '-', '-', '-', 'X', '█', '-', '█', '-', '-', '█',},
+                {'█', '-', '-', '-', '-', '-', '-', '-', '█', '-', '█', '-', '-', '█',},
+                {'█', '-', '-', '-', '-', '█', '█', '█', '█', 'K', '█', '-', '-', '█',},
+                {'█', '-', '█', '█', '█', '-', 'B', 'I', '█', '-', '█', '-', '-', '█',},
+                {'█', '-', '█', '-', '█', '-', '█', '-', '█', '█', '█', '-', '-', '█',},
+                {'█', '-', '█', '-', '-', '-', '█', '-', '-', '-', '-', '-', '-', '█',},
+                {'█', 'I', '█', '█', '-', '-', '█', '-', '-', '-', '-', '-', '-', '█',},
+                {'█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█', '█',}
+            };
+            spawnThief('N', 12, 11, "Key");        //thief will drop a key 
+            spawnThief('N', 4, 8, "Bomb");           
+            break;
         }
         currentMaze = Arrays.copyOf(baseMaze,baseMaze.length);
     }
@@ -371,12 +391,19 @@ public class Main {
                     System.out.println(Gm.BlueColor + "You found a Pickaxe! Enter 4 to pick it up!" + Gm.ResetColor);
                     overlapItemID = 4;
                     break;
+                case 'O':
+                    System.out.println(Gm.BlueColor + "The door is open! Enter 0 to go through it!" + Gm.ResetColor);
+                    overlapItemID = 5;
+                    break;
             }
             System.out.println("[1] Mass Move");
             System.out.println("[2] Items");
             System.out.println("[3] Options");
-            if (overlapItemID > 0) {
+            if (overlapItemID > 0 && overlapItemID < 5) {
                 System.out.println(Gm.BlueColor + "[4] Pick up Item" + Gm.ResetColor);
+            }
+            else if (overlapItemID == 5){
+              System.out.println(Gm.BlueColor + "[0] Go through door" + Gm.ResetColor);
             }
             String c = sc.next().toUpperCase();
             if (c.isEmpty()) {
@@ -413,6 +440,14 @@ public class Main {
                 case '4':
                     if (overlapItemID > 0) {
                         Gm.addItem(overlapItemID, Pl, currentMaze);
+                    }
+			else {
+                        System.out.println("Please enter a different character!");
+                    }
+                    break;
+                case '0':       // code to switch to next level screen
+                    if (overlapItemID==5) {
+                      switchLVL();
                     }
                     else {
                         System.out.println("Please enter a different character!");
@@ -554,4 +589,80 @@ public class Main {
         }
         return sc.nextInt();
     }
+	      //function called when hovering over open door to show next level title screen and go to next maze level
+  public static void switchLVL() {
+    GameData.clearScreen();
+    Pl.LVL++;
+    String fileName;
+    if (Pl.LVL == 2) {
+      //prints the title screen for level 2
+      fileName = "lvltwo.txt";
+      while (true) {
+          try {
+              BufferedReader reader = new BufferedReader(new FileReader(fileName));
+              String line;
+              while ((line = reader.readLine()) != null) {        
+                  System.out.println(line);
+              }
+              reader.close();
+          } catch (Exception e) {     //if .txt file is not there in directory just print text
+              System.out.println("YOU ARE NOW ENTERING LEVEL 2! WATCH OUT FOR THE THEIVES");
+          }
+        //click 1 to continue
+        System.out.println("[1] continue");
+        int cont = sc.nextInt();
+        if (cont == 1){
+          GameData.clearScreen();  //opens new level 
+          game();
+        }
+      }
+    }
+
+    else if (Pl.LVL == 3) { 
+      //prints level 3 title screen 
+      fileName = "lvl3.txt";
+      while (true) {
+          try {
+              BufferedReader reader = new BufferedReader(new FileReader(fileName));
+              String line;
+              while ((line = reader.readLine()) != null) {        
+                  System.out.println(line);
+              }
+              reader.close();
+          } catch (Exception e) {     //if file not found then just print the text 
+              System.out.println("YOU ARE NOW ENTERING LEVEL 3!");
+          }
+        //click 1 to continue
+        System.out.println("[1] continue");
+        int cont = sc.nextInt();
+        if (cont == 1){
+          GameData.clearScreen();
+          game();
+        }
+      }
+    }
+ 
+    else if (Pl.LVL == 4) {// wins game
+      //prints winning screen
+      fileName = "youwin.txt";
+      while (true) {
+          try {
+              BufferedReader reader = new BufferedReader(new FileReader(fileName));
+              String line;
+              while ((line = reader.readLine()) != null) {        
+                  System.out.println(line);
+              }
+              reader.close();
+          } catch (Exception e) {     //if titletext.txt is not there in directory
+              System.out.println("CONGRATULATIONS! YOU HAVE WON THE GAME!");
+          }
+        //click 1 to exit program
+        System.out.println("[1] Exit");
+        int cont = sc.nextInt();
+        if (cont == 1){
+          System.exit(0);;
+        }
+  }
+}
+}
 }
